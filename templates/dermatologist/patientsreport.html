@@ -1,0 +1,92 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DERMATOLOGIST</title>
+
+    <!-- css link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- bootstrap link -->
+    <script src="https://kit.fontawesome.com/702eaef72e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="profile-username">
+                <img src="{% static 'assets/avatar.jpg' %}" alt="user-image" width="60px" height="60px">
+                {% if user.is_authenticated %}
+                <p style="color: white;"><strong> {{ user.username }}</strong></p>
+                {% endif %}
+            </div>
+
+            <ul>
+                <li><a href="{% url 'dashboard' %}">Home</a></li>
+                <li><a href="{% url 'patientslist' %}">Patients</a></li>
+                <li><a href="{% url 'diagnosis' %}">Diagnosis</a></li>
+                <!-- <li><a href="#">Change Password</a></li> -->
+                <li><a href="{% url 'index' %}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h3><i class="fa-solid fa-file"></i> Patients' Reports</h3>
+        </header><br>
+
+        <main>
+            <div class="search">
+                <input type="search" id="searchInput" placeholder="Search by Patient's Name ...">
+            </div><br>
+
+            <div class="diagnosed-patient-table" id="patientTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>FULL NAME</th>
+                            <th>EMAIL</th>
+                            <th>DIAGNOSED DATE</th>
+                            <th>REPORT</th>
+                        </tr>
+                    </thead>
+
+                    <tr>
+                        <td>1</td>
+                        <td>ZAWADI KANADA</td>
+                        <td>zawadi@example.com</td>
+                        <td>2024-01-01 11:30 AM</td>
+                        <td><a href="{% url 'patientreport' %}">View</a></td>
+                    </tr>
+
+                </table>
+            </div>
+        </main>
+
+        <script>
+            var searchInput = document.getElementById('searchInput');
+            var table = document.getElementById('patientTable');
+            var rows = table.getElementsByTagName('tr');
+
+            searchInput.addEventListener('keyup', function () {
+                var filter = searchInput.value.toLowerCase();
+                for (var i = 1; i < rows.length; i++) {
+                    var patientName = rows[i].getElementsByTagName('td')[0].innerText.toLowerCase();
+                    var patientEmail = rows[i].getElementsByTagName('td')[1].innerText.toLowerCase();
+                    if (patientName.indexOf(filter) > -1 || patientEmail.indexOf(filter) > -1) {
+                        rows[i].style.display = '';
+                    } else {
+                        rows[i].style.display = 'none';
+                    }
+                }
+            });
+        </script>
+    </div>
+</body>
+
+</html>

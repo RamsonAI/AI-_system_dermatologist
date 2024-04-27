@@ -1,0 +1,130 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DERMATOLOGIST</title>
+    <!-- css link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- font awesome link -->
+    <script src="https://kit.fontawesome.com/702eaef72e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="profile-username">
+                <img src="{% static 'assets/avatar.jpg' %}" alt="user-image" width="60px" height="60px">
+                {% if user.is_authenticated %}
+                <p style="color: white;"><strong> {{ user.username }}</strong></p>
+                {% endif %}
+            </div>
+
+            <ul>
+                <li><a href="{% url 'dashboard' %}">Home</a></li>
+                <li><a href="#">Patients</a></li>
+                <li><a href="{% url 'diagnosis' %}">Diagnosis</a></li>
+                <!-- <li><a href="{% url 'changepassword2' %}">Change Password</a></li> -->
+                <li><a href="{% url 'index' %}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h3>  <i class="fa-solid fa-hospital-user"></i>  Patients</h3>
+        </header><br><br>
+
+        <main class="patients-main">
+            <div class="add-patient-button">
+                <a href="{% url 'newpatientregistration'%}">+ Register New Patient</a>
+                <!-- <input type="button" value=" + Register New Patient " id="openModalBtn"> -->
+            </div><br><br>
+
+            {% if messages %}
+                <div class="register-msg">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div><br>
+            {% endif %}
+
+            <div class="main-content-p">
+                <p>Registered Patients</p>
+            </div><hr><br>
+
+            <div class="search">
+                <input type="search" id="searchInput" placeholder="Search by Patient's Name ...">
+            </div><br>
+
+            <div class="patients-table">
+                <table id="patientTable">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>FULL NAME</th>
+                            <th>EMAIL</th>
+                            <th>GENDER</th>
+                            <th>REGISTERED DATE</th>
+                            <th>ACTION</th>
+                        </tr>
+                    </thead>
+
+                   <tbody>
+                        {% for patient in patients %}
+                            <tr>
+                                <td>{{ patient.id }}</td>
+                                <td>{{ patient.fullname }}</td>
+                                <td>{{ patient.email }}</td>
+                                <td>{{ patient.gender }}</td>
+                                <td>{{ patient.registered_date }}</td>
+                                <td><a href="{% url 'diagnosis'%}">Diagnose</a></td>
+                            </tr>
+                        {% endfor %}
+                   </tbody>
+
+                    <script>
+                        // Function to filter patients based on search input
+                        function filterPatients() {
+
+                            var input, filter, table, tr, td, i, txtValue;
+
+                            input = document.getElementById("searchInput");
+
+                            filter = input.value.toUpperCase();
+
+                            table = document.getElementById("patientsTable");
+
+                            tr = table.getElementsByTagName("tr");
+
+                            for (i = 0; i < tr.length; i++) {
+
+                                td = tr[i].getElementsByTagName("td")[0]; // Assuming first column (name) is the one to search
+
+                                if (td) {
+
+                                    txtValue = td.textContent || td.innerText;
+
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+
+                                        tr[i].style.display = "";
+                                        
+                                    } else {
+                                        tr[i].style.display = "none";
+                                    }
+                                }
+                            }
+                        }
+
+                        // Add event listener to search input
+                        document.getElementById("searchInput").addEventListener("keyup", filterPatients);
+                    </script>
+
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

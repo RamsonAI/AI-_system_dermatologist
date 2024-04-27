@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DERMATOLOGIST</title>
+
+    <!-- css link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- bootstrap link -->
+    <script src="https://kit.fontawesome.com/702eaef72e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="profile-username">
+                <img src="{% static 'assets/avatar.jpg' %}" alt="user-image" width="60px" height="60px">
+                {% if user.is_authenticated %}
+                <p style="color: white;"><strong> {{ user.username }}</strong></p>
+                {% endif %}
+            </div>
+
+            <ul>
+                <li><a href="{% url 'dashboard' %}">Home</a></li>
+                <li><a href="{% url 'patientslist' %}">Patients</a></li>
+                <li><a href="{% url 'diagnosis' %}">Diagnosis</a></li>
+                <!-- <li><a href="#">Change Password</a></li> -->
+                <li><a href="{% url 'index' %}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h3>New Patient Registration Form</h3>
+        </header><br>
+
+        <main>
+            <div id="registrationForm">
+                <form action="{% url 'register'%}" method="post">
+                    {% csrf_token %}
+                    <label for="fullname">Full Name</label><br>
+                    <input type="text" name="fullname" id="fullname" placeholder="example: RAMSON ARBOGAST" required><br><br>
+
+                    <label for="email">Email</label><br>
+                    <input type="email" name="email" id="email" placeholder="example: ramson@example.com" required><br><br>
+
+                    <label for="age">Age</label><br> 
+                    <input type="number" name="age" id="age" placeholder="example: 56" required><br><br>
+
+                    <select name="gender" id="gender" class="form-select" required>
+                        <option value="">select gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select><br><br>
+
+                    <div class="register-btn">
+                        <input type="submit" value=" Register & Diagnose ">
+                        <input type="submit" value=" Register ">
+                    </div>
+                </form>
+            </div>          
+        </main>
+    </div>
+</body>
+
+</html>
+

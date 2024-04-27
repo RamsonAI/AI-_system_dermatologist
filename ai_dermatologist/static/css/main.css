@@ -1,0 +1,61 @@
+/* all */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+/* Login - style */
+
+.image-form {
+    display: flex;
+    align-items: center;
+    margin-left: 280px;
+    margin-top: 100px;
+}
+
+.form-txt input[type="text"],
+input[type="password"] {
+    padding: 8px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: white;
+    /* outline: none; */
+}
+
+::placeholder {
+    color: black;
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+.form-txt input[type="submit"] {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 111px;
+    font-size: 17px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.863);
+}
+
+.header-txt h3 {
+    text-align: center;
+    font-size: 30px;
+}
+
+.footer-txt {
+    text-align: center;
+    opacity: 0.7;
+    margin-top: 110px;
+}
+
+.image-form .messages p{
+    color: red;
+    font-weight: bold;
+}

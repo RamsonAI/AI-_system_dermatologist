@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DERMATOLOGIST</title>
+
+    <!-- css link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://kit.fontawesome.com/702eaef72e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="profile-username">
+                <img src="{% static 'assets/avatar.jpg' %}" alt="user-image" width="60px" height="60px">
+                {% if user.is_authenticated %}
+                <p style="color: white;"><strong> {{ user.username }}</strong></p>
+                {% endif %}
+            </div>
+
+            <ul>
+                <li><a href="{% url 'dashboard'%}">Home</a></li>
+                <li><a href="{% url 'patientslist'%}">Patients</a></li>
+                <li><a href="{% url 'diagnosis'%}">Diagnosis</a></li>
+                <!-- <li><a href="#">Change Password</a></li> -->
+                <li><a href="{% url 'index' %}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h3>Graph Analysis</h3>
+        </header><br>
+
+        <body>
+            <script>
+                window.onload = function () {
+
+                    var chart = new CanvasJS.Chart("chartContainer", {
+                        theme: "light2",
+                        animationEnabled: true,
+                        title: {
+                            text: "Patients' Graph."
+                        },
+                        subtitles: [{
+                            text: "Patients' Gender Sum.",
+                            fontSize: 16
+                        }],
+                        data: [{
+                            type: "pie",
+                            indexLabelFontSize: 18,
+                            radius: 80,
+                            indexLabel: "{label} - {y}",
+                            yValueFormatString: "###0.0\"%\"",
+                            click: explodePie,
+                            dataPoints: [
+                                { y: 50, label: "Male" },
+                                { y: 50, label: "Female" }
+                            ]
+                        }]
+                    });
+                    chart.render();
+
+                    function explodePie(e) {
+                        for (var i = 0; i < e.dataSeries.dataPoints.length; i++) {
+                            if (i !== e.dataPointIndex)
+                                e.dataSeries.dataPoints[i].exploded = false;
+                        }
+                    }
+
+                }
+            </script>
+            <div id="chartContainer" style="height: 500px; width: 100%;"></div>
+            <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+        </body>
+</html>

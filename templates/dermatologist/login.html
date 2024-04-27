@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DERMATOLOGIST</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script src="{% static 'https://kit.fontawesome.com/702eaef72e.js' %}" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="image-form">
+        <div>
+            <img src="{% static 'assets/woman.jpg' %}" alt="woman picture" height="360px" width="400px" />
+        </div>
+
+        <div class="form-txt">
+            <div class="header-txt">
+                <h3 style="font-family: sans-serif;">Welcome! Sign in</h3><br>
+            </div>
+
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <p>{{ message }}</p><br>
+                    {% endfor %}
+                </div>
+            {% endif%}
+
+            <div class="loginForm">
+                <form method="post" action="{% url 'user_login' %}">
+                    {% csrf_token %}
+
+                    </i><input type="text" name="username" id="username" placeholder="Username" required><br><br>
+
+                    <input type="password" name="password" id="password" placeholder="Password" required><br><br>
+
+                    <div>
+                        <input type="checkbox" name="showPassword" id="showPassword"> Show Password
+                    </div><br>
+
+                    <div>
+                        <input type="submit" name="sign-in" value="Sign in">
+                    </div><br>
+                </form>
+
+                <script>
+                    const passwordInput = document.getElementById('password');
+                    const showPasswordCheckbox = document.getElementById('showPassword');
+
+                    showPasswordCheckbox.addEventListener('change', function(){
+                        if(showPasswordCheckbox.checked){
+                            passwordInput.type = 'text';1
+                        }else{
+                            passwordInput.type = 'password';
+                        }
+                    });
+                </script>
+
+                <a href="{% url 'changePassword'%}">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+<footer>
+    <div class="footer-txt">
+        <p>AI DERMATOLOGIST SYSTEM &copy; 2024</p>
+    </div>
+</footer>
+</html>

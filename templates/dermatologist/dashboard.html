@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DERMATOLOGIST</title>
+
+    <!-- css link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- font awesome link -->
+    <script src="https://kit.fontawesome.com/702eaef72e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+
+            <div class="profile-username">
+                <img src="{% static 'assets/avatar.jpg' %}" alt="user-image" width="60px" height="60px">
+                {% if user.is_authenticated %}
+                <p style="color: white;"><strong> {{ user.username }}</strong></p>
+                {% endif %}
+            </div>
+            
+            <ul>
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="{% url 'patientslist' %}">Patients</a></li>
+                <li><a href="{% url 'diagnosis' %}">Diagnosis</a></li>
+                <!-- <li><a href="{% url 'changepassword2' %}">Change Password</a></li> -->
+                <li><a href="{% url 'index' %}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h3> <i class="fa-solid fa-gauge fa-spin"></i> Dashboard</h3>
+        </header>
+
+        <main>
+            <div class="container">
+                <div class="container-content">
+                   <a href="{% url 'patientslist' %}">
+                    <h2 style="font-weight: bold;">3</h2><br>
+                    <h4>Registered Patients</h4>
+                   </a>
+                </div>
+
+                <div class="container-content">
+                    <a href="{% url 'patientsreport'%}">
+                        <h2 style="font-weight: bold;">3</h2><br>
+                        <h4>Patient's Reports</h4>
+                    </a>
+                </div>
+
+                <div class="container-content-analytics">
+                    <a href="{% url 'analytics'%}">
+                        <h2 style="font-weight: bold;"><i class="fa-solid fa-chart-simple fa-beat"></i></h2><br>
+                        <h4>Graph Analysis</h4>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

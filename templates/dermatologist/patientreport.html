@@ -1,0 +1,128 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DERMATOLOGIST</title>
+
+    <!-- css link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- bootstrap link -->
+    <script src="https://kit.fontawesome.com/702eaef72e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="profile-username">
+                <img src="{% static 'assets/avatar.jpg' %}" alt="user-image" width="60px" height="60px">
+                {% if user.is_authenticated %}
+                <p style="color: white;"><strong> {{ user.username }}</strong></p>
+                {% endif %}
+            </div>
+
+            <ul>
+                <li><a href="{% url 'dashboard' %}">Home</a></li>
+                <li><a href="{% url 'patients' %}">Patients</a></li>
+                <li><a href="{% url 'diagnosis' %}">Diagnosis</a></li>
+                <!-- <li><a href="#">Change Password</a></li> -->
+                <li><a href="{% url 'index' %}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h3><i class="fa-solid fa-file"></i> Patient's Reports</h3>
+        </header><br>
+
+        <main>
+            <div>
+                <a href="{% url 'patientsreport'%}"> Back </a><br><br>
+                <h2>Patient's Diagnosis Report</h2><br>
+                <table>
+                    <tr>
+                        <td>Patient Name :</td>
+                        <td>ZAWADI KANADA</td>
+                    </tr>
+                    <tr>
+                        <td>Email Address :</td>
+                        <td>zawadi@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>Diagnosed Date :</td>
+                        <td>2024-01-01 11:30 AM</td>
+                    </tr>
+                    <tr>
+                        <td>Diagnosed Status :</td>
+                        <td>Not Affected</td>
+                    </tr>
+                </table><br>
+
+                <div class="patient-report-btn">
+                    <input type="button" value="Send to Patient's Email">
+                    <input type="button" value="Print Report" onclick="window.print()">
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid #ccc;
+    }
+
+    th,
+    td {
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .btn-print {
+        display: block;
+        width: 100px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+    /* Hide nav bar when printing */
+    @media print {
+        nav {
+            display: none;
+        }
+    }
+</style>

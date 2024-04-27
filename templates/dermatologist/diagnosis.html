@@ -1,0 +1,72 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DERMATOLOGIST</title>
+
+    <!-- css link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- fontawasome -->
+    <script src="https://kit.fontawesome.com/702eaef72e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="profile-username">
+                <img src="{% static 'assets/avatar.jpg' %}" alt="user-image" width="60px" height="60px">
+                {% if user.is_authenticated %}
+                <p style="color: white;"><strong> {{ user.username }}</strong></p>
+                {% endif %}
+            </div>
+
+            <ul>
+                <li><a href="{% url 'dashboard' %}">Home</a></li>
+                <li><a href="{% url 'patientslist' %}">Patients</a></li>
+                <li><a href="#">Diagnosis</a></li>
+                <!-- <li><a href="#">Change Password</a></li> -->
+                <li><a href="{% url 'index' %}">Logout</a></li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h3><i class="fa-solid fa-stethoscope"></i> Diagnosis</h3>
+        </header><br>
+
+        <main>
+            <div class="diagnosis-form">
+                <form action="#">
+                {% csrf_token %}
+                    <select class="form-select" name="select" id="select" required>
+                            <option value="">Select Patient's name</option>
+                            <option value="patientName">NAME NAME</option>
+                    </select><br><br>
+
+                    <div>
+                        <label for="image-choosed">Select Image from file for Diagnosis Process.</label><br><br>
+                        <input type="file" name="image-choosed" id="image-choosed" accept="image/*" required><br><br>
+                    </div>
+
+                    <input type="submit" value="Perform Diagnosis"><br><br>
+                </form><hr><br>
+
+                <div>
+                    <h2>Diagnosis Report.</h2><br>
+                    <p>Model's Responce : <strong style="color: green;">Scabies Detected with 99% accuracy.</strong></p>
+                </div><br>
+
+                <div>
+                    <button>Generate Report</button>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
