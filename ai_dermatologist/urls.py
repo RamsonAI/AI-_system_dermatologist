@@ -16,8 +16,6 @@ urlpatterns = [
     path('patientreport/', views.patientreport, name='patientreport'),
     path('analytics/', views.Analytics, name='analytics'),
     path('register/', views.register, name='register'),
-    
-    # We changed the pathname to patientlist from patient  and that was the problem
     path('patientslist/', views.patients_list, name='patientslist'),
     path('newpatientregistration/', views.newPatientRegistration, name='newpatientregistration')
 ]

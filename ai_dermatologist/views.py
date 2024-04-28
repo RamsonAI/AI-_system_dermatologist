@@ -82,7 +82,7 @@ def register(request):
 def patients_list(request):
     patients = Patients.objects.order_by('-registered_date')
     return render(request, 'dermatologist/patients.html', {'patients':patients})
-           
+
 @login_required
 def user_logout(request):
     logout(request)
@@ -90,7 +90,8 @@ def user_logout(request):
 
 @login_required 
 def dashboard(request):
-    return render(request, 'dermatologist/dashboard.html')
+    total_patients = Patients.objects.count()
+    return render(request, 'dermatologist/dashboard.html', {'total_patients':total_patients})
 
 @login_required
 def patients(request):
