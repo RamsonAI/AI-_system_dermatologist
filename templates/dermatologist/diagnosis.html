@@ -44,9 +44,12 @@
             <div class="diagnosis-form">
                 <form action="#">
                 {% csrf_token %}
+
                     <select class="form-select" name="select" id="select" required>
-                            <option value="">Select Patient's name</option>
-                            <option value="patientName">NAME NAME</option>
+                        <option value="">Select Patient's name</option>
+                        {% for patient in diagnosis_patients %}
+                        <option value="{{ patient.id }}">{{ patient.fullname }}</option>
+                        {% endfor %}
                     </select><br><br>
 
                     <div>

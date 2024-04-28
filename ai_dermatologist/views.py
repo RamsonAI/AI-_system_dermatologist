@@ -103,7 +103,8 @@ def registerPatients(request):
 
 @login_required
 def diagnosis(request):
-    return render(request, 'dermatologist/diagnosis.html')
+    diagnosis_patients = Patients.objects.order_by('-registered_date')
+    return render(request, 'dermatologist/diagnosis.html', {'diagnosis_patients':diagnosis_patients})
 
 @login_required
 def patientsreport(request):
