@@ -24,7 +24,8 @@ input[type="password"] {
     border-radius: 5px;
     font-size: 16px;
     background-color: white;
-    /* outline: none; */
+    border: 2px solid #aaa;
+    outline: none;
 }
 
 ::placeholder {

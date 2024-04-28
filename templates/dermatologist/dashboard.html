@@ -19,7 +19,7 @@
         <div class="sidebar">
 
             <div class="profile-username">
-                <img src="{% static 'assets/avatar.jpg' %}" alt="user-image" width="60px" height="60px">
+                <img src="{% static 'assets/avatar.jpg'%}" alt="user-image" width="60px" height="60px">
                 {% if user.is_authenticated %}
                 <p style="color: white;"><strong> {{ user.username }}</strong></p>
                 {% endif %}

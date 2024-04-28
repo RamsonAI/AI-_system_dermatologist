@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.models import User
 from django.contrib import messages
-from . models import Patients
+from . models import Patients, Profile
 
 # Create your views here.
 def user_login(request):
@@ -91,6 +91,7 @@ def user_logout(request):
 @login_required 
 def dashboard(request):
     total_patients = Patients.objects.count()
+    # user_profile = Profile.objects.get(user=request.user)
     return render(request, 'dermatologist/dashboard.html', {'total_patients':total_patients})
 
 @login_required
