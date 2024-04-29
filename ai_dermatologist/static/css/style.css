@@ -106,6 +106,18 @@ td {
     margin-top: 15px;
 }
 
+.footer-h3{
+    color: white;
+    font-size: 15px;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+}
+
+.footer-h3 i{
+    font-size: 25px;
+}
+
 /* Dashboard */
 .main-content header{
     font-size: 20px;
