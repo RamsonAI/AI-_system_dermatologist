@@ -40,7 +40,7 @@
 
     <div class="main-content">
         <header>
-            <h3>New Patient Registration Form</h3>
+            <h3><i class="fa-solid fa-user-plus"></i> New Patient Registration Form</h3>
         </header><br>
 
         <main>
@@ -52,6 +52,14 @@
 
                     <label for="email">Email</label><br>
                     <input type="email" name="email" id="email" placeholder="example: ramson@example.com" required><br><br>
+
+                    <!-- {% if message %}
+                        <div>
+                            {% for message in messages %}
+                            <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %} -->
 
                     <label for="age">Age</label><br> 
                     <input type="number" name="age" id="age" placeholder="example: 56" required><br><br>

@@ -75,7 +75,7 @@ def register(request):
         else:
             messages.error(request, 'Invalid inputs')
     else:
-        render(request, 'patientslist.html')
+        render(request, 'patients.html')
 
 @login_required
 # We changed the variable  name to patientlist from patient  and that was the problem
