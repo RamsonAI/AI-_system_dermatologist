@@ -95,7 +95,8 @@ def dashboard(request):
     return render(request, 'dermatologist/dashboard.html', {'total_patients':total_patients})
 
 def userprofile(request):
-    return render(request, 'dermatologist/userprofile.html')
+    profile = Profile.objects.get(user=request.user)
+    return render(request, 'dermatologist/userprofile.html', {'profile':profile})
 
 @login_required
 def patients(request):

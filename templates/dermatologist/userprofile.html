@@ -43,7 +43,14 @@
 
         <body>
             <div id="profile">
-                <img src="{% static 'assets/me.png'%}" alt="user-profile-image">
+
+                <!-- <img src="{% static 'assets/me.png'%}" alt=""> -->
+                
+                {% if profile.profile_image %}
+                    <img src="{{ profile.profile_image.url }}" alt="profile-image">
+                {% else %}
+                    <img src="{% static 'assets/avatar.jpg'%}" alt="default-profile-image">
+                {% endif %}
 
                 <div id="profile-info">
                     {% if user.is_authenticated %}
