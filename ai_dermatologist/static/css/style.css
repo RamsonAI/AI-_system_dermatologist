@@ -310,7 +310,8 @@ hr{
     margin-left: 20px;
 }
 
-#registrationForm input[type="text"], input[type="email"], input[type="number"]{
+#registrationForm input[type="text"], 
+input[type="number"]{
     padding: 8px;
     width: 30%;
     outline: none;
@@ -318,6 +319,15 @@ hr{
     border-radius: 5px;
     border: 2px solid #aaa;
     
+}
+
+#registrationForm input[type="email"]{
+        padding: 8px;
+        width: 30%;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        border: 2px solid #aaa;
 }
 
 #registrationForm input[type="submit"]{
@@ -371,7 +381,7 @@ hr{
     height: 170px;
 }
 
-#profile input[type="text"], input[type="email"]{
+#profile-info input[type="text"], input[type="email"]{
     padding: 4px 0px;
     border: none;
     border-bottom: 1px solid black;
