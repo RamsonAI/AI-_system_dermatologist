@@ -17,5 +17,6 @@ urlpatterns = [
     path('analytics/', views.Analytics, name='analytics'),
     path('register/', views.register, name='register'),
     path('patientslist/', views.patients_list, name='patientslist'),
-    path('newpatientregistration/', views.newPatientRegistration, name='newpatientregistration')
+    path('newpatientregistration/', views.newPatientRegistration, name='newpatientregistration'),
+    path('userprofile/', views.userprofile, name='userprofile')
 ]

@@ -16,7 +16,9 @@
     <div class="wrapper">
         <div class="sidebar">
             <div class="profile-username">
-                <img src="{% static 'assets/avatar.jpg' %}" alt="user-image" width="60px" height="60px">
+                <a href="{% url 'userprofile'%}">
+                    <img src="{% static 'assets/avatar.jpg'%}" alt="user-image" width="60px" height="60px">
+                </a>
                 {% if user.is_authenticated %}
                 <p style="color: white;"><strong> {{ user.username }}</strong></p>
                 {% endif %}
@@ -42,74 +44,75 @@
         </header><br>
 
         <body>
-            <script>
-                window.onload = function () {
+            <div class="graphs">
+                <script>
+                    window.onload = function () {
 
-                    var chart = new CanvasJS.Chart("chartContainer", {
-                        theme: "light2",
-                        animationEnabled: true,
-                        title: {
-                            text: "Patients' Graph."
-                        },
-                        subtitles: [{
-                            text: "Patients' Gender Sum.",
-                            fontSize: 16
-                        }],
-                        data: [{
-                            type: "pie",
-                            indexLabelFontSize: 18,
-                            radius: 80,
-                            indexLabel: "{label} - {y}",
-                            yValueFormatString: "###0.0\"%\"",
-                            click: explodePie,
-                            dataPoints: [
-                                { y: 50, label: "Male" },
-                                { y: 50, label: "Female" }
-                            ]
-                        }]
-                    });
-                    chart.render();
+                        var chart = new CanvasJS.Chart("chartContainer", {
+                            theme: "light2",
+                            animationEnabled: true,
+                            title: {
+                                text: "Patients' Graph."
+                            },
+                            subtitles: [{
+                                text: "Patients' Gender Sum.",
+                                fontSize: 16
+                            }],
+                            data: [{
+                                type: "pie",
+                                indexLabelFontSize: 18,
+                                radius: 80,
+                                indexLabel: "{label} - {y}",
+                                yValueFormatString: "###0.0\"%\"",
+                                click: explodePie,
+                                dataPoints: [
+                                    { y: 50, label: "Male" },
+                                    { y: 50, label: "Female" }
+                                ]
+                            }]
+                        });
+                        chart.render();
 
-                    function explodePie(e) {
-                        for (var i = 0; i < e.dataSeries.dataPoints.length; i++) {
-                            if (i !== e.dataPointIndex)
-                                e.dataSeries.dataPoints[i].exploded = false;
-                        }
-                    }
-
-                }
-            </script>
-            <div id="chartContainer" style="height: 500px; width: 100%;"></div>
-            <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
-
-            <div>
-                <canvas id="myChart"></canvas>
-            </div>
-            
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            
-            <script>
-                const ctx = document.getElementById('myChart');
-
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Male', 'Female'],
-                        datasets: [{
-                            label: '# MALE VS FEMALE',
-                            data: [12, 19],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
+                        function explodePie(e) {
+                            for (var i = 0; i < e.dataSeries.dataPoints.length; i++) {
+                                if (i !== e.dataPointIndex)
+                                    e.dataSeries.dataPoints[i].exploded = false;
                             }
                         }
-                    }
-                });
-            </script>
 
+                    }
+                </script>
+                <div id="chartContainer" style="height: 500px; width: 100%;"></div>
+                <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+                
+                <div>
+                    <canvas id="myChart"></canvas>
+                </div>
+                
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                
+                <script>
+                    const ctx = document.getElementById('myChart');
+
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Male', 'Female'],
+                            datasets: [{
+                                label: '# MALE VS FEMALE',
+                                data: [12, 19],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
         </body>
 </html>
