@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DERMATOLOGIST</title>
+
+    <!-- css link -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://kit.fontawesome.com/702eaef72e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="profile-username">
+                <img src="{% static 'assets/avatar.jpg' %}" alt="user-image" width="60px" height="60px">
+                {% if user.is_authenticated %}
+                <p style="color: white;"><strong> {{ user.username }}</strong></p>
+                {% endif %}
+            </div>
+
+            <ul>
+                <li><a href="{% url 'dashboard'%}">Home</a></li>
+                <li><a href="{% url 'patientslist'%}">Patients</a></li>
+                <li><a href="{% url 'diagnosis'%}">Diagnosis</a></li>
+                <!-- <li><a href="#">Change Password</a></li> -->
+                <li><a href="{% url 'index' %}">Logout</a></li>
+            </ul>
+
+            <div class="footer-h3">
+                <h3><i class="fa-solid fa-robot fa-beat"></i> AI SYSTEM</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h3><i class="fa-solid fa-id-card"></i> User's Profile</h3>
+        </header><br>
+
+        <body>
+            <div id="profile">
+                <img src="{% static 'assets/me.png'%}" alt="user-profile-image">
+
+                <div id="profile-info">
+                    {% if user.is_authenticated %}
+                        <div>
+                            <h3>Information</h3>
+                            <hr><br>
+                            <p>Username : {{ user.username }}</p><br>
+                            <p>FirstName : {{ user.first_name }}</p><br>
+                            <p>LastName : {{ user.last_name }}</p><br>
+                            <p>Email : {{ user.email }} </p><br>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+        </body>
+
+</html>
