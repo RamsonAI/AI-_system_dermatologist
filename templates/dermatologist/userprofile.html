@@ -16,7 +16,10 @@
     <div class="wrapper">
         <div class="sidebar">
             <div class="profile-username">
-                <img src="{% static 'assets/avatar.jpg' %}" alt="user-image" width="60px" height="60px">
+                {% if profile.profile_image %}
+                    <img src="{{ profile.profile_image.url }}" alt="user-image" width="60px" height="60px">
+                {% endif %}
+
                 {% if user.is_authenticated %}
                 <p style="color: white;"><strong> {{ user.username }}</strong></p>
                 {% endif %}
@@ -61,30 +64,49 @@
                             <p>FirstName : {{ user.first_name }}</p><br>
                             <p>LastName : {{ user.last_name }}</p><br>
                             <p>Email : {{ user.email }} </p><br>
-
-                            <input type="button" value="UPDATE"><br><br>
-                        </div>
+                         </div>
                     {% endif %}
                 </div>
-            </div><br><br>
+            </div><br>
 
-            <!-- <div id="update-profile-info">
+            <input type="button" value="UPDATE" id="show-registration-form" class="update-user-info-btn"><br><br>
+
+            <div id="update-profile-info">
                 <h3>Update Information</h3><hr><br>
-                <form action="">
-                    <label for="username">Username</label><br>
-                    <input type="text" name="username" id="username"><br><br>
+                <form action="" class="update-info-form">
+                    <label for="profile-img">Profile Image</label>
+                    <input type="file" name="" id="profile-img" accept="image/*"><br><br>
+
+                    <!-- <label for="username">Username</label> -->
+                    <input type="text" name="username" id="username" placeholder="Username"><br><br>
                     
-                    <label for="username">First Name</label><br>
-                    <input type="text" name="username" id="username"><br><br>
+                    <!-- <label for="username">First Name</label> -->
+                    <input type="text" name="firstname" id="firstname" placeholder="First Name"><br><br>
                     
-                    <label for="username">Last Name</label><br>
-                    <input type="text" name="username" id="username"><br><br>
+                    <!-- <label for="username">Last Name</label> -->
+                    <input type="text" name="lastname" id="lastname" placeholder="Last Name"><br><br>
                     
-                    <label for="username">Email Address</label><br>
-                    <input type="text" name="username" id="username"><br><br>
+                    <!-- <label for="username">Email Address</label> -->
+                    <input type="email" name="email" id="email" placeholder="Email Address"><br><br>
 
                     <input type="button" value="SAVE">
-                </form>
-            </div> -->
+                </form><br>
+            </div>
+
+            <script>
+                // Get references to the button and the registration form
+                const button = document.getElementById('show-registration-form');
+                const form = document.getElementById('update-profile-info');
+
+                // Add event listener to the button
+                button.addEventListener('click', function () {
+                    // Toggle the display of the registration form
+                    if (form.style.display === 'none') {
+                        form.style.display = 'block';
+                    } else {
+                        form.style.display = 'none';
+                    }
+                });
+            </script>
         </body>
 </html>
