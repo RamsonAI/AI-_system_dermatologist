@@ -18,6 +18,14 @@
     width: 100%;
 }
 
+.diagnosed-patient-table th{
+    background-color: #aaa;
+}
+
+.patients-table th{
+    background-color: #aaa;
+}
+
 .patients-table th, td{
     padding: 8px;
     text-align: left;
