@@ -70,10 +70,17 @@
             </div><br>
 
             <input type="button" value="UPDATE" id="show-registration-form" class="update-user-info-btn"><br><br>
+<!-- 
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ messages }}</p>
+                {% endfor %}
+            {% endif %} -->
 
             <div id="update-profile-info">
                 <h3>Update Information</h3><hr><br>
-                <form action="" class="update-info-form">
+                <form action="{% url 'update_user'%}" method="post" class="update-info-form">
+                    {% csrf_token %}
                     <label for="profile-img">Profile Image</label>
                     <input type="file" name="" id="profile-img" accept="image/*"><br><br>
 
@@ -81,15 +88,15 @@
                     <input type="text" name="username" id="username" placeholder="Username"><br><br>
                     
                     <!-- <label for="username">First Name</label> -->
-                    <input type="text" name="firstname" id="firstname" placeholder="First Name"><br><br>
+                    <input type="text" name="first_name" id="firstname" placeholder="First Name"><br><br>
                     
                     <!-- <label for="username">Last Name</label> -->
-                    <input type="text" name="lastname" id="lastname" placeholder="Last Name"><br><br>
+                    <input type="text" name="last_name" id="lastname" placeholder="Last Name"><br><br>
                     
                     <!-- <label for="username">Email Address</label> -->
                     <input type="email" name="email" id="email" placeholder="Email Address"><br><br>
 
-                    <input type="button" value="SAVE">
+                    <input type="submit" value="SAVE">
                 </form><br>
             </div>
 

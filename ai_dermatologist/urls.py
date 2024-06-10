@@ -9,6 +9,7 @@ urlpatterns = [
     path('update_password/', views.Update_password, name='update_password'),
     path('changePassword/', views.changePassword, name='changePassword'),
     path('changepassword2/', views.changepassword2, name='changepassword2'),
+    path('passwordchangedsucess/', views.passwordchangedsuccess, name='passwordchangedsuccess'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('diagnosis/', views.diagnosis, name='diagnosis'),
     path('patients/', views.patients, name='patients'),
@@ -18,5 +19,6 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('patientslist/', views.patients_list, name='patientslist'),
     path('newpatientregistration/', views.newPatientRegistration, name='newpatientregistration'),
-    path('userprofile/', views.userprofile, name='userprofile')
+    path('userprofile/', views.userprofile, name='userprofile'),
+    path('update_user/', views.update_user, name='update_user')
 ]

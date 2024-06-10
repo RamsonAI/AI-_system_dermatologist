@@ -29,15 +29,18 @@ def changePassword(request):
 def changepassword2(request):
     return render(request, 'dermatologist/changepassword2.html')
 
+def passwordchangedsuccess(request):
+    return render(request, 'dermatologist/passwordchangedsucess.html')
+
 def change_password(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         user = User.objects.filter(username=username).first()
         if user is not None:
-            return render(request, 'changepassword2.html', {'username': username})
+            return render(request, 'dermatologist/changepassword2.html', {'username': username})
         else:
-            return render(request, 'changePassword.html', {'error': 'Username not found.'})
-    return render(request, 'changePassword.html')
+            return render(request, 'dermatologist/changePassword.html', {'error': 'Username not found.'})
+    return render(request, 'dermatologist/changePassword.html')
 
 def Update_password(request):
     if request.method == 'POST':
@@ -50,9 +53,9 @@ def Update_password(request):
             user.set_password(password)
             user.save()
             update_session_auth_hash(request, user)
-            return redirect('password_change_success')
+            return redirect('passwordchangedsuccess')
         else:
-            return render(request, 'changePassword.html', {'error': 'username not found'})
+            return render(request, 'dermatologist/changePassword.html', {'error': 'username not found'})
     return redirect('changePassword')
 
 # register patients view
@@ -76,6 +79,27 @@ def register(request):
             messages.error(request, 'Invalid inputs')
     else:
         render(request, 'patients.html')
+@login_required
+def update_user(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+
+        #retrieve the current user 
+        user = request.user
+        user.username = username
+        user.email = email
+        user.first_name = first_name
+        user.last_name = last_name
+
+        user.save()
+
+        messages.success(request, 'your profile has been updated successfully!')
+        return redirect('userprofile')
+    else:
+        return render(request, 'dermatologist/userprofile.html')
 
 @login_required
 # We changed the variable  name to patientlist from patient  and that was the problem

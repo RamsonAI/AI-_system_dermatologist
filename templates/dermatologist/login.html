@@ -34,7 +34,7 @@
                 <form method="post" action="{% url 'user_login' %}">
                     {% csrf_token %}
 
-                    </i><input type="text" name="username" id="username" placeholder="Username" required><br><br>
+                    <input type="text" name="username" id="username" placeholder="Username" required><br><br>
 
                     <input type="password" name="password" id="password" placeholder="Password" required><br><br>
 
@@ -60,7 +60,7 @@
                     });
                 </script>
 
-                <a href="{% url 'changePassword'%}">Forgot Password?</a>
+                <a href="{% url 'update_password'%}">Forgot Password?</a>
             </div>
         </div>
     </div>

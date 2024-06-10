@@ -60,3 +60,20 @@ input[type="password"] {
     color: red;
     font-weight: bold;
 }
+
+/* responsiveness */
+@media (max-width: 768px) {
+    .image-form {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .image-form img {
+        display: none;
+    }
+
+    .form-txt {
+        padding: 10px;
+    }
+} 

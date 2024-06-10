@@ -15,6 +15,7 @@ class Patients(models.Model):
     fullname = models.CharField(max_length=200)
     email = models.EmailField(unique=True)
     age = models.PositiveIntegerField()
+    # dob = models.DateField(blank=True)
     gender = models.CharField(max_length=6)
     registered_date = models.DateTimeField(auto_now_add=True)
 
