@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Classification Result</title>
+</head>
+
+<body>
+    <h2>Classification Result</h2>
+    <p>Result: {{ result }}</p>
+    <img src="{{ file_url }}" alt="Uploaded Image" style="max-width: 300px;">
+    <br>
+    <a href="{% url 'classify_image' %}">Classify another image</a>
+</body>
+
+</html>

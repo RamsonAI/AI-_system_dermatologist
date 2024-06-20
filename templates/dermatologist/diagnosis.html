@@ -37,7 +37,6 @@
             <div class="footer-h3">
                 <h3><i class="fa-solid fa-robot fa-beat"></i> AI SYSTEM</h3>
             </div>
-
         </div>
     </div>
 
@@ -48,8 +47,8 @@
 
         <main>
             <div class="diagnosis-form">
-                <form action="#">
-                {% csrf_token %}
+                <form action="{% url 'classify_image' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
 
                     <select class="form-select" name="select" id="select" required>
                         <option value="">Select Patient's name</option>
@@ -64,18 +63,26 @@
                     </div>
 
                     <input type="submit" value="Perform Diagnosis"><br><br>
-                </form><hr><br>
+                </form>
+                <hr><br>
 
+                {% if result %}
                 <div>
-                    <h2>Diagnosis Report.</h2><br>
-                    <p>Model's Responce : <strong style="color: green;">Scabies Detected with 99% accuracy.</strong></p>
+                    <h2>Diagnosis Report</h2><br>
+                    <p><i><b>Patient Name:</b></i> {{ patient.fullname }}</p><br>
+                    <p><i><b>Diagnosis Result:</b></i> {{ result }}</p><br>
+                    <p><img src="{{ file_url }}" alt="Uploaded Image"></p>
                 </div><br>
 
+
                 <div class="generate-report-btn">
-                    <input type="button" value="Generate Report">
-                </div>
+                    <input type="button" value="Save Results">
+                </div><br>
+                {% endif %}
+
             </div>
         </main>
     </div>
 </body>
+
 </html>

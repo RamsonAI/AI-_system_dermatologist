@@ -5,6 +5,10 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.models import User
 from django.contrib import messages
 from . models import Patients, Profile
+from django.core.files.storage import FileSystemStorage
+from .model import model, transform
+from PIL import Image
+import torch
 
 # Create your views here.
 def user_login(request):
@@ -57,6 +61,17 @@ def Update_password(request):
         else:
             return render(request, 'dermatologist/changePassword.html', {'error': 'username not found'})
     return redirect('changePassword')
+
+def graph_analysis(request):
+    male_count = Patients.objects.filter(gender='male').count()
+    female_count = Patients.objects.filter(gender='female').count()
+
+    context = {
+        'male_count':male_count,
+        'female_count':female_count,
+    }
+
+    return render(request, 'dermatologist/Analytics.html', context)
 
 # register patients view
 def register(request):
@@ -150,3 +165,63 @@ def patientreport(request):
 def newPatientRegistration(request):
     return render(request, 'dermatologist/newpatientregister.html')
 
+def result(request):
+    return render(request, 'dermatologist/result.html')
+
+# def classify_image(request):
+#     if request.method == 'POST' and request.FILES.get('image'):
+#         image = request.FILES['image']
+#         fs = FileSystemStorage()
+#         filename = fs.save(image.name, image)
+#         file_url = fs.url(filename)
+
+#         img = Image.open(image)
+#         img = transform(img).unsqueeze(0)
+
+#         with torch.no_grad():
+#             outputs = model(img)
+#             _, predicted = torch.max(outputs, 1)
+#             #add logic for decoding the predicted class, e.g., 0 1
+#             if predicted.item() == 0:
+#                 result = "Acne"
+#             elif predicted.item() == 1:
+#                 result = "Scabies"
+#             else:
+#                 result = "Image is not recognized as acne or scabies"
+            
+#         return render(request, 'dermatologist/result.html', {'result': result, 'file_url':file_url })
+#     return render(request, 'dermatologist/upload.html')
+
+
+# views.py
+
+def classify_image(request):
+    if request.method == 'POST' and request.FILES['image-choosed']:
+        image = request.FILES['image-choosed']
+        patient_id = request.POST['select']
+        patient = Patients.objects.get(id=patient_id)
+
+        fs = FileSystemStorage()
+        filename = fs.save(image.name, image)
+        file_url = fs.url(filename)
+
+        img = Image.open(image)
+        img = transform(img).unsqueeze(0)  # Add batch dimension
+
+        with torch.no_grad():
+            outputs = model(img)
+            _, predicted = torch.max(outputs, 1)
+            if predicted.item() == 0:
+                result = "Acne"
+            elif predicted.item() == 1:
+                result = "Scabies"
+            else:
+                result = 'Image unrecognized'
+
+        return render(request, 'dermatologist/diagnosis.html', {'result': result, 
+        'file_url': file_url,
+        'patient':patient,
+        'diagnosis_patients':Patients.objects.all()})
+    
+    diagnosis_patients = Patients.objects.all()
+    return render(request, 'dermatologist/diagnosis.html', {'diagnosis_patients': diagnosis_patients})

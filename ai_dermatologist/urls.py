@@ -20,5 +20,6 @@ urlpatterns = [
     path('patientslist/', views.patients_list, name='patientslist'),
     path('newpatientregistration/', views.newPatientRegistration, name='newpatientregistration'),
     path('userprofile/', views.userprofile, name='userprofile'),
-    path('update_user/', views.update_user, name='update_user')
+    path('update_user/', views.update_user, name='update_user'),
+    path('classify/', views.classify_image, name='classify_image')
 ]

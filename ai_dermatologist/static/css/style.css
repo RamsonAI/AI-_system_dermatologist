@@ -439,7 +439,7 @@ input[type="number"]{
     width: 30%;
 }
 
-.update-info-form input[type="button"]{
+.update-info-form input[type="submit"]{
         padding: 8px 10px;
         background-color: black;
         color: white;
