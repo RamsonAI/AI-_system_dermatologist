@@ -29,7 +29,7 @@
             <ul>
                 <li><a href="{% url 'dashboard' %}">Home</a></li>
                 <li><a href="{% url 'patientslist' %}">Patients</a></li>
-                <li><a href="#">Diagnosis</a></li>
+                <!-- <li><a href="#">Diagnosis</a></li> -->
                 <!-- <li><a href="#">Change Password</a></li> -->
                 <li><a href="{% url 'index' %}">Logout</a></li>
             </ul>
@@ -49,14 +49,18 @@
             <div class="diagnosis-form">
                 <form action="{% url 'classify_image' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-
+<!-- 
                     <select class="form-select" name="select" id="select" required>
                         <option value="">Select Patient's name</option>
                         {% for patient in diagnosis_patients %}
                         <option value="{{ patient.id }}">{{ patient.fullname }}</option>
                         {% endfor %}
-                    </select><br><br>
-
+                    </select><br><br> -->
+                    <input type="hidden" name="patient_id" value="{{ selected_patient.id}}">
+                    <div>
+                        <label for="patient-name">Patient Name</label><br><br>
+                        <input class="name-inp" type="text" name="patient_name" id="patient-name" value="{{selected_patient.fullname}}" readonly><br><br>
+                    </div>
                     <div>
                         <label for="image-choosed">Select Image from file for Diagnosis Process.</label><br><br>
                         <input type="file" name="image-choosed" id="image-choosed" accept="image/*" required><br><br>
@@ -71,12 +75,12 @@
                     <h2>Diagnosis Report</h2><br>
                     <p><i><b>Patient Name:</b></i> {{ patient.fullname }}</p><br>
                     <p><i><b>Diagnosis Result:</b></i> {{ result }}</p><br>
-                    <p><img src="{{ file_url }}" alt="Uploaded Image"></p>
+                    <p><img src="{{ file_url }}" alt="Uploaded Image" width="200"></p>
                 </div><br>
 
 
                 <div class="generate-report-btn">
-                    <input type="button" value="Save Results">
+                    <a href="{%url 'patientsreport'%}">Get Report</a>
                 </div><br>
                 {% endif %}
 

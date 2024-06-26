@@ -25,4 +25,11 @@ class Patients(models.Model):
     def __str__(self):
         return self.fullname
 
+class DiagnosisReport(models.Model):
+    patient = models.ForeignKey(Patients, on_delete=models.CASCADE)
+    result = models.CharField(max_length=60)
+    image = models.ImageField(upload_to='diagnosis_images')
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.patient.fullname} - {self.result} - {self.created_at}"

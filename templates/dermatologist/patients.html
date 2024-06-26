@@ -27,7 +27,7 @@
             <ul>
                 <li><a href="{% url 'dashboard' %}">Home</a></li>
                 <li><a href="#">Patients</a></li>
-                <li><a href="{% url 'diagnosis' %}">Diagnosis</a></li>
+                <!-- <li><a href="{% url 'diagnosis' %}">Diagnosis</a></li> -->
                 <!-- <li><a href="{% url 'changepassword2' %}">Change Password</a></li> -->
                 <li><a href="{% url 'index' %}">Logout</a></li>
             </ul>
@@ -71,6 +71,7 @@
                     <thead>
                         <tr>
                             <!-- <th>S/N</th> -->
+                            <th>ID</th>
                             <th>FULL NAME</th>
                             <th>EMAIL</th>
                             <th>GENDER</th>
@@ -83,50 +84,33 @@
                         {% for patient in patients %}
                             <tr>
                                 <!-- <td>{{ patient.id }}</td> -->
+                                <td>{{ patient.id }}</td>
                                 <td>{{ patient.fullname }}</td>
                                 <td>{{ patient.email }}</td>
                                 <td>{{ patient.gender }}</td>
                                 <td>{{ patient.registered_date }}</td>
-                                <td><a href="{% url 'diagnosis'%}">Diagnose</a></td>
+                                <td><a href="{% url 'diagnose_patient' patient.id%}">Diagnose</a></td>
                             </tr>
                         {% endfor %}
                    </tbody>
 
                     <script>
-                        // Function to filter patients based on search input
-                        function filterPatients() {
+                        var searchInput = document.getElementById('searchInput');
+                        var table = document.getElementById('patientTable');
+                        var rows = table.getElementsByTagName('tr');
 
-                            var input, filter, table, tr, td, i, txtValue;
-
-                            input = document.getElementById("searchInput");
-
-                            filter = input.value.toUpperCase();
-
-                            table = document.getElementById("patientsTable");
-
-                            tr = table.getElementsByTagName("tr");
-
-                            for (i = 0; i < tr.length; i++) {
-
-                                td = tr[i].getElementsByTagName("td")[0]; // Assuming first column (name) is the one to search
-
-                                if (td) {
-
-                                    txtValue = td.textContent || td.innerText;
-
-                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-
-                                        tr[i].style.display = "";
-                                        
-                                    } else {
-                                        tr[i].style.display = "none";
-                                    }
+                        searchInput.addEventListener('keyup', function () {
+                            var filter = searchInput.value.toLowerCase();
+                            for (var i = 1; i < rows.length; i++) {
+                                var patientName = rows[i].getElementsByTagName('td')[0].innerText.toLowerCase();
+                                var patientEmail = rows[i].getElementsByTagName('td')[1].innerText.toLowerCase();
+                                if (patientName.indexOf(filter) > -1 || patientEmail.indexOf(filter) > -1) {
+                                    rows[i].style.display = '';
+                                } else {
+                                    rows[i].style.display = 'none';
                                 }
                             }
-                        }
-
-                        // Add event listener to search input
-                        document.getElementById("searchInput").addEventListener("keyup", filterPatients);
+                        });
                     </script>
 
                 </table>

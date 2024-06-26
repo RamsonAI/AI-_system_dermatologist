@@ -29,7 +29,7 @@
             <ul>
                 <li><a href="{% url 'dashboard' %}">Home</a></li>
                 <li><a href="{% url 'patients' %}">Patients</a></li>
-                <li><a href="{% url 'diagnosis' %}">Diagnosis</a></li>
+                <!-- <li><a href="{% url 'diagnosis' %}">Diagnosis</a></li> -->
                 <!-- <li><a href="#">Change Password</a></li> -->
                 <li><a href="{% url 'index' %}">Logout</a></li>
             </ul>
@@ -50,34 +50,48 @@
                 <a href="{% url 'patientsreport'%}"> Back </a><br><br>
                 <h2>Patient's Diagnosis Report</h2><br>
                 <table>
+                    {% for report in reports%}
                     <tr>
-                        <td>Patient Name :</td>
-                        <td>ZAWADI KANADA</td>
+                        <td><b>Patient Name</b> </td>
+                        <td>{{ patient.fullname }}</td>
                     </tr>
                     <tr>
-                        <td>Email Address :</td>
-                        <td>zawadi@example.com</td>
+                        <td><b>Email Address</b> </td>
+                        <td>{{ patient.email }}</td>
                     </tr>
                     <tr>
-                        <td>Diagnosed Date :</td>
-                        <td>2024-01-01 11:30 AM</td>
+                        <td><b>Diagnosed Date</b></td>
+                        <td>{{ report.created_at }}</td>
                     </tr>
+                    
                     <tr>
-                        <td>Diagnosed Status :</td>
-                        <td>Acne</td>
+                        <td><b>Diagnosed Image</b> </td>
+                        <td><img src="{{report.image.url}}" alt="Diagnosis Image" width="100"></td>
                     </tr>
+                    
+                    <tr>
+                        <td><b>Diagnosis Result</b> </td>
+                        <td>{{ report.result }}</td>
+                    </tr>
+                    {% endfor %}
                 </table><br>
 
                 {% if user.is_authenticated %}
                     <div>
-                        <p>This Report is Digitally Signed By : {{ user.first_name }} {{user.last_name}}</p><br>
+                        <p><i><b>This Report is Digitally Signed By : {{ user.first_name }} {{user.last_name}}</b></i></p><br>
                     </div>
                 {% endif %}
 
-                <div class="patient-report-btn">
-                    <input type="button" value="Send to Patient's Email">
-                    <input type="button" value="Print Report" onclick="window.print()">
+                <div class="send-email-btn">
+                    <form action="{% url 'send_patient_email' patient.id%}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="send-email-btn">Send to Patient's Email</button><br><br>
+                    </form>
                 </div>
+
+                <div class="patient-report-btn">
+                    <input type="button" value="Print Report" onclick="window.print()">
+                </div><br><br>
             </div>
         </main>
     </div>
@@ -134,6 +148,22 @@
     /* Hide nav bar when printing */
     @media print {
         nav {
+            display: none;
+        }
+
+        .send-email-btn{
+            display: none;
+        }
+
+        .patient-report-btn{
+            display: none;
+        }
+
+        a{
+            display: none;
+        }
+
+        header{
             display: none;
         }
     }

@@ -29,7 +29,7 @@
             <ul>
                 <li><a href="{% url 'dashboard' %}">Home</a></li>
                 <li><a href="{% url 'patientslist' %}">Patients</a></li>
-                <li><a href="{% url 'diagnosis' %}">Diagnosis</a></li>
+                <!-- <li><a href="{% url 'diagnosis' %}">Diagnosis</a></li> -->
                 <!-- <li><a href="#">Change Password</a></li> -->
                 <li><a href="{% url 'index' %}">Logout</a></li>
             </ul>
@@ -54,23 +54,23 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>S/N</th>
                             <th>FULL NAME</th>
                             <th>EMAIL</th>
                             <th>DIAGNOSED DATE</th>
-                            <th>DIAGNOSED STATUS</th>
+                            <th>DIAGNOSIS RESULTS</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
 
+                    {% for report in reports %}
                     <tr>
-                        <td>1</td>
-                        <td>ZAWADI KANADA</td>
-                        <td>zawadi@example.com</td>
-                        <td>2024-01-01 11:30 AM</td>
-                        <td>Acne</td>
-                        <td><a href="{% url 'patientreport' %}">View</a></td>
+                        <td>{{ report.patient.fullname }}</td>
+                        <td>{{ report.patient.email }}</td>
+                        <td>{{ report.created_at}}</td>
+                        <td>{{ report.result }}</td>
+                        <td><a href="{% url 'patient_detail' report.patient.id %}">View</a></td>
                     </tr>
+                    {%endfor%}
 
                 </table>
             </div>
