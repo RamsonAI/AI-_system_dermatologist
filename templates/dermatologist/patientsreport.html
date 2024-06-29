@@ -67,7 +67,7 @@
                         <td>{{ report.patient.fullname }}</td>
                         <td>{{ report.patient.email }}</td>
                         <td>{{ report.created_at}}</td>
-                        <td>{{ report.result }}</td>
+                        <td style="color: green;">{{ report.result }}</td>
                         <td><a href="{% url 'patient_detail' report.patient.id %}">View</a></td>
                     </tr>
                     {%endfor%}
