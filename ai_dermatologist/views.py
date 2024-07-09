@@ -73,7 +73,7 @@ def Update_password(request):
     return redirect('changePassword')
 
 # register patients view
-@login_required
+@login_required(login_url='/')
 @never_cache
 def register(request):
     if request.method == 'POST':
@@ -96,7 +96,7 @@ def register(request):
     else:
         render(request, 'patients.html')
 
-@login_required
+@login_required(login_url='/')
 @never_cache
 def update_user(request):
     if request.method == 'POST':
@@ -119,19 +119,19 @@ def update_user(request):
     else:
         return render(request, 'dermatologist/userprofile.html')
 
-@login_required
+@login_required(login_url='/')
 @never_cache
 def patients_list(request):
     patients = Patients.objects.order_by('-registered_date')
     return render(request, 'dermatologist/patients.html', {'patients':patients})
 
-@login_required
+@login_required(login_url='/')
 @never_cache
 def user_logout(request):
     logout(request)
     return redirect('index')
 
-@login_required 
+@login_required(login_url='/') 
 @never_cache
 def dashboard(request):
     total_patients = Patients.objects.count()
@@ -148,13 +148,13 @@ def dashboard(request):
 #     total_reports = DiagnosisReport.objects.count()
 #     return render(request, 'dermatologist/dashboard.html', {'total_reports':total_reports})
 
-@login_required
+@login_required(login_url='/')
 @never_cache
 def userprofile(request):
     profile = Profile.objects.get(user=request.user)
     return render(request, 'dermatologist/userprofile.html', {'profile':profile})
 
-@login_required
+@login_required(login_url='/')
 @never_cache
 def patients(request):
     return render(request, 'dermatologist/patients.html')
@@ -163,13 +163,13 @@ def patients(request):
 def registerPatients(request):
     pass
 
-@login_required
+@login_required(login_url='/')
 @never_cache
 def diagnosis(request):
     diagnosis_patients = Patients.objects.order_by('-registered_date')
     return render(request, 'dermatologist/diagnosis.html', {'diagnosis_patients':diagnosis_patients})
 
-@login_required
+@login_required(login_url='/')
 @never_cache
 def patientsreport(request):
     reports = DiagnosisReport.objects.order_by('-created_at')
@@ -187,7 +187,7 @@ def patientsreport(request):
 
 #     return render(request, 'dermatologist/Analytics.html', context)
 
-@login_required
+@login_required(login_url='/')
 @never_cache
 def Analytics(request):
     male_count = Patients.objects.filter(gender='male').count()
@@ -199,17 +199,17 @@ def Analytics(request):
     }
     return render(request, 'dermatologist/Analytics.html', {'context':context})
 
-@login_required
+@login_required(login_url='/')
 @never_cache
 def patientreport(request):
     return render(request, 'dermatologist/patientreport.html')
 
-@login_required
+@login_required(login_url='/')
 @never_cache
 def newPatientRegistration(request):
     return render(request, 'dermatologist/newpatientregister.html')
 
-@login_required
+@login_required(login_url='/')
 @never_cache
 def result(request):
     return render(request, 'dermatologist/result.html')
@@ -239,7 +239,7 @@ def result(request):
 #     return render(request, 'dermatologist/upload.html')
 
 
-@login_required
+@login_required(login_url='/')
 @never_cache
 def classify_image(request):
     if request.method == 'POST' and request.FILES['image-choosed']:
@@ -276,20 +276,20 @@ def classify_image(request):
     diagnosis_patients = Patients.objects.all()
     return render(request, 'dermatologist/diagnosis.html', {'diagnosis_patients': diagnosis_patients})
 
-@login_required
+@login_required(login_url='/')
 @never_cache
 def patient_detail(request, patient_id):
     patient = get_object_or_404(Patients, id=patient_id)
     reports = DiagnosisReport.objects.filter(patient=patient)
     return render(request, 'dermatologist/patientreport.html', {'patient':patient, 'reports': reports})
 
-@login_required
+@login_required(login_url='/')
 @never_cache
 def diagnose_patient(request, patient_id):
     patient = get_object_or_404(Patients, id=patient_id)
     return render(request, 'dermatologist/diagnosis.html', {'selected_patient':patient})
 
-@login_required
+@login_required(login_url='/')
 @never_cache
 def send_patient_email(request, patient_id):
     patient = get_object_or_404(Patients, id=patient_id)
@@ -315,3 +315,6 @@ def send_patient_email(request, patient_id):
     )
 
     return redirect('dermatologist/patient_detail', patient_id=patient.id)
+
+def custom_404_view(request, exception):
+    render(request, 'dermatologist/pagenotfound.html', status=404)

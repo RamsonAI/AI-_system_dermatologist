@@ -48,6 +48,9 @@
         <main>
             <div>
                 <a href="{% url 'patientsreport'%}"> Back </a><br><br>
+                <div class="patient-report-btn">
+                    <input type="button" value="Print Report" onclick="window.print()">
+                </div><br>
                 <h2>Patient's Diagnosis Report</h2><br>
                 <table>
                     {% for report in reports%}
@@ -89,9 +92,6 @@
                     </form>
                 </div>
 
-                <div class="patient-report-btn">
-                    <input type="button" value="Print Report" onclick="window.print()">
-                </div><br><br>
             </div>
         </main>
     </div>

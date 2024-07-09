@@ -23,7 +23,7 @@ class Patients(models.Model):
         verbose_name_plural = 'Patients'
 
     def __str__(self):
-        return self.fullname
+        return f"{self.fullname} - {self.email} - {self.gender}"
 
 class DiagnosisReport(models.Model):
     patient = models.ForeignKey(Patients, on_delete=models.CASCADE)
