@@ -143,11 +143,6 @@ def dashboard(request):
     }
     return render(request, 'dermatologist/dashboard.html', context)
 
-# @login_required
-# def count_reports(request):
-#     total_reports = DiagnosisReport.objects.count()
-#     return render(request, 'dermatologist/dashboard.html', {'total_reports':total_reports})
-
 @login_required(login_url='/')
 @never_cache
 def userprofile(request):
@@ -175,18 +170,6 @@ def patientsreport(request):
     reports = DiagnosisReport.objects.order_by('-created_at')
     return render(request, 'dermatologist/patientsreport.html', {'reports':reports})
 
-# @login_required
-# def graph_analysis(request):
-#     male_count = Patients.objects.filter(gender='male').count()
-#     female_count = Patients.objects.filter(gender='female').count()
-
-#     context = {
-#         'male_count':male_count,
-#         'female_count':female_count,
-#     }
-
-#     return render(request, 'dermatologist/Analytics.html', context)
-
 @login_required(login_url='/')
 @never_cache
 def Analytics(request):
@@ -213,31 +196,6 @@ def newPatientRegistration(request):
 @never_cache
 def result(request):
     return render(request, 'dermatologist/result.html')
-
-# def classify_image(request):
-#     if request.method == 'POST' and request.FILES.get('image'):
-#         image = request.FILES['image']
-#         fs = FileSystemStorage()
-#         filename = fs.save(image.name, image)
-#         file_url = fs.url(filename)
-
-#         img = Image.open(image)
-#         img = transform(img).unsqueeze(0)
-
-#         with torch.no_grad():
-#             outputs = model(img)
-#             _, predicted = torch.max(outputs, 1)
-#             #add logic for decoding the predicted class, e.g., 0 1
-#             if predicted.item() == 0:
-#                 result = "Acne"
-#             elif predicted.item() == 1:
-#                 result = "Scabies"
-#             else:
-#                 result = "Image is not recognized as acne or scabies"
-            
-#         return render(request, 'dermatologist/result.html', {'result': result, 'file_url':file_url })
-#     return render(request, 'dermatologist/upload.html')
-
 
 @login_required(login_url='/')
 @never_cache
