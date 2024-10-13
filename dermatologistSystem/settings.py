@@ -13,9 +13,16 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+
+
+#load .env file
+dotenv_path = os.path.join(BASE_DIR, '.env')
+load_dotenv(dotenv_path)
+
 
 # STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
@@ -79,11 +86,11 @@ WSGI_APPLICATION = 'dermatologistSystem.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'aidermatologist',
-        'PORT':'5432',
-        'USER':'postgres',
-        'PASSWORD': 'callmekali',
-        'HOST':'localhost',
+        'NAME': os.getenv('DATABASE_NAME'),
+        'PORT': os.getenv('DATABASE_PORT'),
+        'USER':os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST':os.getenv('DATABASE_HOST'),
     }
 }
 
@@ -141,14 +148,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #email settings
 DEBUG = True
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'aidermatologistsystem@gmail.com'
-EMAIL_HOST_PASSWORD = '@Ramson18'
-DEFAULT_FROM_EMAIL= 'aidermatologistsystem@gmail.com'
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL= os.getenv('DEFAULT_FROM_EMAIL')
 
 #session handling
 SESSION_COOKIE_AGE = 6 * 60 * 60

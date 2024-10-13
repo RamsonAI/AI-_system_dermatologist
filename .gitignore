@@ -3,3 +3,4 @@ db.sqlite3
 media/
 resnet18_acne_scabies.pth
 simple_cnn.pth
+.env
